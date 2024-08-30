@@ -1,0 +1,50 @@
+<header>
+<!-- 네이게이션 바 상단 -->
+
+<nav class="navbar navbar-expand-lg" style = "background-color : #bac2f2">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./index.html" style = "padding-left : 10px; padding-right : 10px;"><img src = "image/logo.png" alt="홈"  width="30" height="30"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a id = "top-borrowform" class="nav-link active" aria-current="page">대여 신청하기</a>
+        </li>
+         <li class="nav-item">
+          <a id = "top-index" class="nav-link active" aria-current="page" href="./index.html">대여 신청 게시판</a>
+        </li> 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            기타 정보
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">건물 정보 조회</a></li>
+            <li><a class="dropdown-item" href="#">강의실 정보 조회</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">개발자 정보</a></li>
+          </ul>
+        </li>
+        <!-- 
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+         -->
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="강의실 검색" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" style="white-space: nowrap; margin : 0 15px;">찾기</button>
+      </form>
+      <button class="btn btn-primary" id = "top-login-button" onclick="window.location.href='./login.html'" role="button" style = "margin : 0 15px;">로그인</button>
+      <button class="btn btn-primary" id = "top-join-button" onclick="window.location.href='./join.html'" role="button" style = "margin : 0 15px;">회원가입</button>
+      <button class="btn btn-primary" id = "top-info-button" onclick="window.location.href='./info.html'" role="button" style = "margin : 0 15px;" >내 정보</button>
+      <button class="btn btn-primary" id = "top-logout-button" role="button" style = " margin : 0 15px;">로그아웃</button>
+
+      
+    </div>
+  </div>
+</nav>
+</header>
+
+

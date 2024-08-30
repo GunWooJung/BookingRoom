@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빌링 :: 대학교 강의실 대여 사이트</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<style>
+
+.nav-item a, .dropdown-item{
+	font-size : 13pt;
+	padding-top : -6px;
+	margin: 0 15px; /* 양쪽 여백 추가 */
+  	font-weight: bold; /* 텍스트 굵게 */
+}
+.nav-item:hover, .dropdown-item:hover{
+    background-color: #e9ecef; /* 호버 시 배경색 변경 */
+    border-radius: 6px; /* 모서리 둥글게 */
+}
+.navbar-brand:hover{
+    background-color: #29b4e3; /* 호버 시 배경색 변경 */
+    border-radius: 6px; /* 모서리 둥글게 */
+}
+#loginBox{
+    margin: 100px 0px 200px 0px;
+	padding: 10px 200px;
+}
+#login-button-box{
+ 	text-align: right;
+}
+#login-title > p{
+	font-family: '맑은 고딕', sans-serif;
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	color: blue;
+	padding: 0 0 30px 0;
+}
+#idDiv , #passwordDiv {
+	color: red;
+	font-size: 11pt;
+	font-weight: bold;
+	padding: 10px 0  0 20px;
+}
+</style>
+</head>
+
+<body>
+<script>
+/*
+fetch("./header/header.html")
+.then(response => response.text())
+.then(data => {
+  document.getElementById("header").innerHTML = data;
+})
+.catch(error => console.error('Error loading header:', error));
+*/
+
+
+fetch("./footer/footer.html")
+.then(response => response.text())
+.then(data => {
+  document.getElementById("footer").innerHTML = data;
+})
+.catch(error => console.error('Error loading footer:', error));
+</script>
+
+
+<div id = "header"></div>
+
+<main>
+
+<div id = "loginBox">
+<div id = "login-title">
+<p>로그인</p>
+</div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <input type="text" name="user_id" class="form-control" placeholder="아이디" aria-label="아이디" aria-describedby="button-addon2" >
+
+</div>
+<div id = "idDiv"></div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <input type="password" name="user_password" class="form-control" placeholder="비밀 번호" aria-label="비밀 번호" aria-describedby="button-addon2">
+</div>
+	<div id = passwordDiv></div>
+<div id = "login-button-box">
+  <a class="btn btn-primary" id = "login-button" href="./login.html" role="button" style = "width : 100px; margin : 10px 0px;">로그인</a>
+</div>
+
+<div id = "modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">안내</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>아이디 또는 비밀 번호가 일치하지 않습니다.</p>
+      </div>
+      <div class="modal-footer">
+        <button id = "ok-button" type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</main>
+
+<div id = "footer" ></div>
+
+<script src="http://code.jQuery.com/jquery-3.7.1.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+
+
+$('#login-button').bind('click', function(event){
+	event.preventDefault();
+	$('#idDiv').empty();
+	$('#passwordDiv').empty();
+	
+	var user_id = $('input[name="user_id"]').val();
+	if(!user_id) {
+		$('#idDiv').text('아이디 입력하세요.');
+		$('input[name="user_id"]').focus();
+		return false;
+	}//if
+	
+	var user_password = $('input[name="user_password"]').val();
+	if(!user_password) {
+		$('#passwordDiv').text('비밀 번호를 입력하세요.');
+		$('input[name="user_password"]').focus();
+		return false;
+	}//if
+
+	$.post(//'../login/login.jsp',
+			'./jsp/logincheck.jsp',
+		   { 'user_id': user_id, 'user_password': user_password },
+		   function(data){
+			   /*
+			   let message = $(data).find('message').text();
+			   if(message == "fail"){
+					const modalElement = document.getElementById('loginModal');
+				    const modal = new bootstrap.Modal(modalElement);
+				    modal.show();  
+			   }
+			   else{
+				   window.location.href = './index.html';
+			   }*/
+			   localStorage.setItem('id', data);
+			  // const username = localStorage.getItem('id');
+			  // console.log(username);	
+			   $('.modal-body > p').text('로그인을 성공하였습니다.');
+			   const modalElement = document.getElementById('modal');
+			   const modal = new bootstrap.Modal(modalElement);
+			   modal.show();  
+			   $('#ok-button').bind('click', function(event){
+				   window.location.href = './index.html';
+		    	});
+		   }).fail(function(){
+			   $('.modal-body > p').text('아이디 또는 비밀 번호가 일치하지 않습니다.');
+			   const modalElement = document.getElementById('modal');
+			   const modal = new bootstrap.Modal(modalElement);
+			   modal.show();  
+	});
+});
+$(document).ready(function() {
+	 $('#header').load('./header/header.html', function() {
+	let value = localStorage.getItem('id');
+	if(value != null && value > 0){
+		console.log(2);
+		   $('#top-info-button').css('visibility', 'visible'); // 보이게
+	       $('#top-logout-button').css('visibility', 'visible'); // 보이게
+	       $('#top-login-button').css('display', 'none'); // 숨기기
+	       $('#top-join-button').css('display', 'none'); // 숨기기
+	       
+	       $('#top-logout-button').bind('click', function(event){
+	    		localStorage.removeItem('id');
+	    		window.location.href = './index.html';
+	    		console.log("dd");
+	    	});
+	}
+	else{
+		console.log(1);
+	    $('#top-info-button').css('display', 'none'); // 숨기기
+	    $('#top-logout-button').css('display', 'none'); // 숨기기
+	    $('#top-login-button').css('visibility', 'visible'); // 보이게
+	    $('#top-join-button').css('visibility', 'visible'); // 보이게
+	}
+	
+   $('#top-borrowform').on('click', function() {
+       // 페이지 이동을 위해서 location.href를 설정
+   window.location.href = './borrowform.html';
+	});
+	$('#top-index').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './index.html';
+	});
+	$('#top-login-button').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './login.html';
+	});
+	
+	$('#top-join-button').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './join.html';
+	});  
+	$('#top-info-button').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './info.html';
+	});
+	});
+});
+</script>
+</body>
+</html>

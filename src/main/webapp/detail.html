@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빌링 :: 대학교 강의실 대여 사이트</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<style>
+
+.nav-item a, .dropdown-item{
+	font-size : 13pt;
+	padding-top : -6px;
+	margin: 0 15px; /* 양쪽 여백 추가 */
+  	font-weight: bold; /* 텍스트 굵게 */
+}
+.nav-item:hover, .dropdown-item:hover{
+    background-color: #e9ecef; /* 호버 시 배경색 변경 */
+    border-radius: 6px; /* 모서리 둥글게 */
+}
+.navbar-brand:hover{
+    background-color: #29b4e3; /* 호버 시 배경색 변경 */
+    border-radius: 6px; /* 모서리 둥글게 */
+}
+#formBox{
+    margin: 100px 0px 200px 0px;
+	padding: 50px 200px;
+}
+#form-title > p{
+	font-family: '맑은 고딕', sans-serif;
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	color: blue;
+	padding: 0 0 30px 0;
+}
+.input-group mb-3{
+	margin : 10px 0px;
+}
+#titleDiv{
+	color: red;
+	font-size: 11pt;
+	font-weight: bold;
+	padding: 10px 0 10px 20px;
+}
+#form-button-box{
+ 	text-align: right;
+}
+#boardChangebox{
+	margin-top : 30px;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<script>
+/*
+fetch("./header/header.html")
+.then(response => response.text())
+.then(data => {
+  document.getElementById("header").innerHTML = data;
+})
+.catch(error => console.error('Error loading header:', error));
+*/
+
+fetch("./footer/footer.html")
+.then(response => response.text())
+.then(data => {
+  document.getElementById("footer").innerHTML = data;
+})
+.catch(error => console.error('Error loading footer:', error));
+</script>
+
+
+<div id = "header"></div>
+
+<main>
+
+<div id = "formBox">
+<div id = "form-title">
+<p>강의실 대여 신청</p>
+</div>
+<div id = "userId" name = "userId" style = "display : none;"></div>
+
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <div id = "num" style="padding: 0 0 0 5px; font-weight:bold;">글 번호 :</div>
+</div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <div id = "writer" style="padding: 0 0 0 5px; font-weight:bold;">작성자 :</div>
+</div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <div id = "write-time" style="padding: 0 0 0 5px; font-weight:bold;">작성일 :</div>
+</div>
+<div id = "titleDiv"></div>
+<div id = "title" style="padding: 0 0 0 5px; font-weight:bold;">제목</div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <input id = "input-title" name="title" type="text" class="form-control"  aria-label="제목" aria-describedby="button-addon2" readonly>
+</div>
+<div id = "titleDiv"></div>
+
+<div id = "building" style="padding: 0 0 0 5px; font-weight:bold;">건물</div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <input id = "input-building" name="building" type="text" class="form-control"  aria-label="제목" aria-describedby="button-addon2" readonly>
+</div>
+<div id = "buildingDiv"></div>
+
+ <div id = "room" style="padding: 0 0 0 5px; font-weight:bold;">강의실 번호</div>
+<div class="input-group mb-3" style = "margin : 10px 0px;">
+  <input id = "input-room" name="room" type="text" class="form-control" aria-label="제목" aria-describedby="button-addon2" readonly>
+</div>
+<div id = "roomDiv"></div>
+
+<div id = "content" style="padding: 0 0 20px 5px; font-weight:bold;">사유</div>
+<div id = "contentDiv"></div>
+<div class="form-floating">
+  <textarea class="form-control" name = "reason" id="floatingTextarea2" style="height: 300px" readonly></textarea>
+</div>
+<div id = "contentDiv"></div>
+<div id = "boardChangebox">
+				<a class="btn btn-primary" id="change-button" role="button"
+					style="width: 100px; margin: 10px 0px;">수정</a> 
+					<a class="btn btn-primary" id="delete-button" role="button"
+					style="width: 100px; margin: 10px 20px;">삭제</a>
+</div>
+
+		<div id="modal" class="modal" tabindex="-1">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">안내</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<p>내용 없음</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+									data-bs-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+</div>
+
+</main>
+
+<div id = "footer"></div>
+
+<script src="http://code.jQuery.com/jquery-3.7.1.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+
+
+$(document).ready(function() {
+	 $('#header').load('./header/header.html', function() {
+	let value = localStorage.getItem('id');
+	if(value != null && value > 0){
+		console.log(2);
+		   $('#top-info-button').css('visibility', 'visible'); // 보이게
+	       $('#top-logout-button').css('visibility', 'visible'); // 보이게
+	       $('#top-login-button').css('display', 'none'); // 숨기기
+	       $('#top-join-button').css('display', 'none'); // 숨기기
+	       
+	       $('#top-logout-button').bind('click', function(event){
+	    		localStorage.removeItem('id');
+	    		window.location.href = './index.html';
+	    		console.log("dd");
+	    	});
+	}
+	else{
+		console.log(1);
+	    $('#top-info-button').css('display', 'none'); // 숨기기
+	    $('#top-logout-button').css('display', 'none'); // 숨기기
+	    $('#top-login-button').css('visibility', 'visible'); // 보이게
+	    $('#top-join-button').css('visibility', 'visible'); // 보이게
+	}
+	
+   $('#top-borrowform').on('click', function() {
+       // 페이지 이동을 위해서 location.href를 설정
+   window.location.href = './borrowform.html';
+	});
+	$('#top-index').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './index.html';
+	});
+	$('#top-login-button').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './login.html';
+	});
+	
+	$('#top-join-button').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './join.html';
+	});  
+	$('#top-info-button').on('click', function() {
+	        // 페이지 이동을 위해서 location.href를 설정
+	   window.location.href = './info.html';
+	});
+	});
+	 const queryString = window.location.search;
+
+	// URLSearchParams 객체를 생성하여 쿼리 문자열을 파싱합니다.
+	const urlParams = new URLSearchParams(queryString);
+
+	// 특정 파라미터의 값을 가져옵니다.
+	const paramValue = urlParams.get("id");
+	console.log("p:"+paramValue);
+	 $.post({	url : './jsp/detail.jsp',
+		   data : { 'id': paramValue  },
+		   dataType: 'json',
+		   success: function(data, textStatus, jqXHR) {
+			  console.log(data);
+		
+			   if (jqXHR.status === 200) { // HTTP 200 OK
+					$('#num').text('글 번호 : '+data.id);
+					const date = new Date(data.logtime);
+					const year = date.getFullYear();
+					const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+					const day = String(date.getDate()).padStart(2, '0');
+					const fullDate = year+"."+month+"."+day;
+					$('#writer').text('작성자 : '+data.name);
+					$('#write-time').text('작성일 : '+fullDate);
+					$('input[name="title"]').val(data.title);
+					$('input[name="building"]').val(data.building);
+					$('input[name="room"]').val(data.room);
+					$('textarea[name="reason"]').val(data.reason);
+					$('#userId').val(data.userId);
+					let value = localStorage.getItem('id');
+					if(Number(data.userId) != Number(value)){
+					       $('#change-button').css('display', 'none'); // 숨기기
+					       $('#delete-button').css('display', 'none'); // 숨기기
+					}
+			   }
+		   },  error: function(data, textStatus, jqXHR) {
+				console.log(data);//실패
+	}}); 
+	 
+	 
+});
+$('#change-button').bind('click', function(event){
+	 const queryString = window.location.search;
+
+		// URLSearchParams 객체를 생성하여 쿼리 문자열을 파싱합니다.
+	const urlParams = new URLSearchParams(queryString);
+
+		// 특정 파라미터의 값을 가져옵니다.
+	const paramValue = urlParams.get("id");
+	window.location.href = './change.html?id='+paramValue;
+
+});
+
+$('#delete-button').bind('click', function(event){
+	event.preventDefault();
+	
+	  const queryString = window.location.search;
+
+		// URLSearchParams 객체를 생성하여 쿼리 문자열을 파싱합니다.
+	const urlParams = new URLSearchParams(queryString);
+
+		// 특정 파라미터의 값을 가져옵니다.
+	const paramValue = urlParams.get("id");
+		
+	$.post(	'./jsp/deleteboard.jsp',
+			   { 'id': paramValue,
+				},
+				function(data, textStatus, jqXHR) {
+				  console.log(data);
+			
+				   if (jqXHR.status === 200) { // HTTP 200 OK
+					   
+					   $('.modal-body > p').text('삭제 되었습니다.');
+					   const modalElement = document.getElementById('modal');
+					   const modal = new bootstrap.Modal(modalElement);
+					   modal.show();  
+					   $('.modal-footer > button').on('click', function(){
+						 
+						window.location.href = './index.html';
+					   });  
+				   }
+   
+			   }).fail(function(data, textStatus, jqXHR) {
+				 
+				$('.modal-body > p').text('삭제가 실패하였습니다.');
+				   const modalElement = document.getElementById('modal');
+				   const modal = new bootstrap.Modal(modalElement);
+				   modal.show();  
+		});	
+});
+
+</script>
+</body>
+</html>
